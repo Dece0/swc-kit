@@ -18,10 +18,15 @@ export namespace Components {
          */
         "staticBackdrop": boolean;
         "toggle": () => Promise<void>;
+        /**
+          * The modal visibility state
+         */
+        "visible": boolean;
     }
     interface SwcTooltip {
+        "content": string;
+        "isHtml": boolean;
         "position": 'down' | 'up' | 'right' | 'left';
-        "text": string;
     }
 }
 declare global {
@@ -52,10 +57,15 @@ declare namespace LocalJSX {
           * The modal static backdrop
          */
         "staticBackdrop"?: boolean;
+        /**
+          * The modal visibility state
+         */
+        "visible"?: boolean;
     }
     interface SwcTooltip {
+        "content"?: string;
+        "isHtml"?: boolean;
         "position"?: 'down' | 'up' | 'right' | 'left';
-        "text": string;
     }
     interface IntrinsicElements {
         "swc-modal": SwcModal;

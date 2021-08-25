@@ -7,7 +7,8 @@ import { Component, h, Prop } from '@stencil/core';
 })
 export class SwcTooltip {
 
-  @Prop() text!: string;
+  @Prop({ attribute: 'html' }) isHtml: boolean = false;
+  @Prop() content: string = '';
   @Prop() position: 'down' | 'up' | 'right' | 'left' = 'up';
 
   private get class() {
@@ -15,7 +16,7 @@ export class SwcTooltip {
       case 'right':
         return 'tooltip-right';
       case 'left':
-        return 'tooltip-down';
+        return 'tooltip-left';
       case 'up':
         return 'tooltip-up';
       case 'down':
@@ -32,7 +33,15 @@ export class SwcTooltip {
           <slot />
         </div>
         <div class="tooltip-content">
-          <span class="tooltip-text">{this.text}</span>
+          {
+            this.isHtml ? (
+              <div class="tooltip-text" innerHTML={this.content} />
+            ) : (
+              <div class="tooltip-text">
+                {this.content}
+              </div>
+            )
+          }
         </div>
       </div>
 

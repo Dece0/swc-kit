@@ -26,7 +26,7 @@ export class SWCModal {
   /**
    * The modal visibility state
    */
-  @State()
+  @Prop()
   visible: boolean = false;
 
   /**

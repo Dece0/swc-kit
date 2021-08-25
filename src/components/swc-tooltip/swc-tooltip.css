@@ -1,25 +1,60 @@
+:host {
+  @apply cursor-help;
+}
+
 .tooltip {
   @apply relative inline-block;
 }
 
 .tooltip-content {
-  @apply absolute min-w-min invisible rounded shadow-lg z-10 opacity-0 bg-white;
-  @apply text-center mb-2 p-2;
-  @apply transform -translate-x-1/2 transition-opacity;
+  @apply invisible opacity-0 absolute max-w-screen-sm rounded-lg shadow-lg z-10;
+  @apply transform transition-all;
 }
 
 .tooltip-text {
-  @apply font-semibold;
+  @apply p-2 bg-white text-sm w-full;
 }
 
-.tooltip:hover .tooltip-content {
-  @apply visible opacity-100;
+/* Up */
+
+.tooltip-up:hover .tooltip-content,
+.tooltip-up:focus .tooltip-content {
+  @apply -top-1 visible opacity-100;
 }
 
 .tooltip-up .tooltip-content {
-  @apply left-2/4 top-0;
+  @apply -top-3 translate-x-1/2 -translate-y-full;
+}
+
+/* Down */
+
+.tooltip-down:hover .tooltip-content,
+.tooltip-down:focus .tooltip-content {
+  @apply -bottom-1 visible opacity-100;
+}
+
+.tooltip-down .tooltip-content {
+  @apply -bottom-3 translate-y-full;
+}
+
+/* Right */
+
+.tooltip-right:hover .tooltip-content,
+.tooltip-right:focus .tooltip-content {
+  @apply -right-2 visible opacity-100;
 }
 
 .tooltip-right .tooltip-content {
-  @apply right-0 -translate-y-1/2 translate-x-1/2;
+  @apply -right-4 -top-2 translate-x-full;
+}
+
+/* left */
+
+.tooltip-left:hover .tooltip-content,
+.tooltip-left:focus .tooltip-content {
+  @apply -left-2 visible opacity-100;
+}
+
+.tooltip-left .tooltip-content {
+  @apply -left-4 -top-2 -translate-x-full;
 }
