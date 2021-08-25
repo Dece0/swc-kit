@@ -1,4 +1,4 @@
-import { Component, Prop, h, Element, Listen, Method, State } from '@stencil/core';
+import { Component, Prop, h, Element, Listen, Method } from '@stencil/core';
 
 @Component({
   tag: 'swc-modal',
@@ -26,7 +26,9 @@ export class SWCModal {
   /**
    * The modal visibility state
    */
-  @Prop()
+  @Prop({
+    mutable: true
+  })
   visible: boolean = false;
 
   /**
