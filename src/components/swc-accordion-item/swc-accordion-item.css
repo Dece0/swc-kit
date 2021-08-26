@@ -1,0 +1,31 @@
+:host {
+  @apply block;
+}
+
+.accordion-item {
+  @apply w-full shadow-lg rounded-sm my-4;
+}
+
+.accordion-header {
+  @apply flex flex-row justify-between items-center p-3 m-0 cursor-pointer text-lg;
+}
+
+.accordion-btn {
+  @apply border-none bg-white cursor-pointer;
+}
+
+.accordion-icon {
+  @apply transition-transform duration-500 transform fill-current w-4 h-4 text-purple-600;
+}
+
+.accordion-open .accordion-icon {
+  @apply rotate-180;
+}
+
+.accordion-body {
+  @apply overflow-hidden max-h-0 duration-500 transition-all;
+}
+
+.accordion-content {
+  @apply p-3;
+}

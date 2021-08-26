@@ -5,7 +5,17 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ToggleEvent } from "./components/swc-accordion-item/swc-accordion-item";
 export namespace Components {
+    interface SwcAccordion {
+        "alwaysOpen": boolean;
+    }
+    interface SwcAccordionItem {
+        "hide": () => Promise<void>;
+        "index": number;
+        "label": string;
+        "show": () => Promise<void>;
+    }
     interface SwcModal {
         "hide": () => Promise<void>;
         "show": () => Promise<void>;
@@ -26,10 +36,22 @@ export namespace Components {
     interface SwcTooltip {
         "content": string;
         "isHtml": boolean;
-        "position": 'down' | 'up' | 'right' | 'left';
+        "position": 'bottom' | 'top' | 'right' | 'left';
     }
 }
 declare global {
+    interface HTMLSwcAccordionElement extends Components.SwcAccordion, HTMLStencilElement {
+    }
+    var HTMLSwcAccordionElement: {
+        prototype: HTMLSwcAccordionElement;
+        new (): HTMLSwcAccordionElement;
+    };
+    interface HTMLSwcAccordionItemElement extends Components.SwcAccordionItem, HTMLStencilElement {
+    }
+    var HTMLSwcAccordionItemElement: {
+        prototype: HTMLSwcAccordionItemElement;
+        new (): HTMLSwcAccordionItemElement;
+    };
     interface HTMLSwcModalElement extends Components.SwcModal, HTMLStencilElement {
     }
     var HTMLSwcModalElement: {
@@ -43,11 +65,21 @@ declare global {
         new (): HTMLSwcTooltipElement;
     };
     interface HTMLElementTagNameMap {
+        "swc-accordion": HTMLSwcAccordionElement;
+        "swc-accordion-item": HTMLSwcAccordionItemElement;
         "swc-modal": HTMLSwcModalElement;
         "swc-tooltip": HTMLSwcTooltipElement;
     }
 }
 declare namespace LocalJSX {
+    interface SwcAccordion {
+        "alwaysOpen"?: boolean;
+    }
+    interface SwcAccordionItem {
+        "index": number;
+        "label": string;
+        "onToggle"?: (event: CustomEvent<ToggleEvent>) => void;
+    }
     interface SwcModal {
         /**
           * The modal size
@@ -65,9 +97,11 @@ declare namespace LocalJSX {
     interface SwcTooltip {
         "content"?: string;
         "isHtml"?: boolean;
-        "position"?: 'down' | 'up' | 'right' | 'left';
+        "position"?: 'bottom' | 'top' | 'right' | 'left';
     }
     interface IntrinsicElements {
+        "swc-accordion": SwcAccordion;
+        "swc-accordion-item": SwcAccordionItem;
         "swc-modal": SwcModal;
         "swc-tooltip": SwcTooltip;
     }
@@ -76,6 +110,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "swc-accordion": LocalJSX.SwcAccordion & JSXBase.HTMLAttributes<HTMLSwcAccordionElement>;
+            "swc-accordion-item": LocalJSX.SwcAccordionItem & JSXBase.HTMLAttributes<HTMLSwcAccordionItemElement>;
             "swc-modal": LocalJSX.SwcModal & JSXBase.HTMLAttributes<HTMLSwcModalElement>;
             "swc-tooltip": LocalJSX.SwcTooltip & JSXBase.HTMLAttributes<HTMLSwcTooltipElement>;
         }

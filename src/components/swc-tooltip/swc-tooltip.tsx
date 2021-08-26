@@ -9,7 +9,7 @@ export class SwcTooltip {
 
   @Prop({ attribute: 'html' }) isHtml: boolean = false;
   @Prop() content: string = '';
-  @Prop() position: 'down' | 'up' | 'right' | 'left' = 'up';
+  @Prop() position: 'bottom' | 'top' | 'right' | 'left' = 'top';
 
   private get class() {
     switch (this.position) {
@@ -17,10 +17,10 @@ export class SwcTooltip {
         return 'tooltip-right';
       case 'left':
         return 'tooltip-left';
-      case 'up':
-        return 'tooltip-up';
-      case 'down':
-        return 'tooltip-down';
+      case 'top':
+        return 'tooltip-top';
+      case 'bottom':
+        return 'tooltip-bottom';
       default:
         return 'tooltip-up';
     }

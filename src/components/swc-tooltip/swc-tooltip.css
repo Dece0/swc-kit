@@ -17,24 +17,24 @@
 
 /* Up */
 
-.tooltip-up:hover .tooltip-content,
-.tooltip-up:focus .tooltip-content {
-  @apply -top-1 visible opacity-100;
+.tooltip-top:hover .tooltip-content,
+.tooltip-top:focus .tooltip-content {
+  @apply -top-2 visible opacity-100;
 }
 
-.tooltip-up .tooltip-content {
-  @apply -top-3 translate-x-1/2 -translate-y-full;
+.tooltip-top .tooltip-content {
+  @apply -top-4 -translate-y-full;
 }
 
 /* Down */
 
-.tooltip-down:hover .tooltip-content,
-.tooltip-down:focus .tooltip-content {
-  @apply -bottom-1 visible opacity-100;
+.tooltip-bottom:hover .tooltip-content,
+.tooltip-bottom:focus .tooltip-content {
+  @apply -bottom-2 visible opacity-100;
 }
 
-.tooltip-down .tooltip-content {
-  @apply -bottom-3 translate-y-full;
+.tooltip-bottom .tooltip-content {
+  @apply -bottom-4 translate-y-full;
 }
 
 /* Right */
