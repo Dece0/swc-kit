@@ -1,41 +1,42 @@
 import { Component, h, Listen, Element, Prop } from '@stencil/core';
+import { ToggleEvent } from '../swc-accordion-item/swc-accordion-item';
 
 @Component({
   tag: 'swc-accordion',
   styleUrl: 'swc-accordion.css',
   shadow: true,
 })
-export class SWCAccordion {
+export class SwcAccordion {
 
-  @Prop({ attribute: 'is-collapsible' }) isCollapsible: boolean = false;
+  @Prop({ attribute: 'always-open' }) alwaysOpen: boolean = false;
 
   @Element() hostElement: HTMLElement;
 
   @Listen('toggle')
-  async handleToggle(ev): Promise<void> {
-    const element = ev.detail.element as HTMLElement;
-    if (!this.isCollapsible) {
+  async handleToggle(ev: CustomEvent<ToggleEvent>): Promise<void> {
+    const { element, shouldOpen } = ev.detail;
+    if (!this.alwaysOpen) {
       await this.closeOtherItems(element);
     }
-    if (!ev.detail.shouldOpen) {
-      await ev.detail.element.open();
+    if (!shouldOpen) {
+      await element.show();
       return;
     }
-    await ev.detail.element.close();
+    await element.hide();
   }
 
-  private closeOtherItems(el: HTMLElement): Promise<any[]> {
-    const items = Array.from(this.hostElement.children);
-    const itemsToClose = items
+  private closeOtherItems(el: HTMLSwcAccordionItemElement): Promise<void[]> {
+    const itemsToClose = Array
+      .from(this.hostElement.children)
       .filter(item => !item.isSameNode(el))
-      .map((item: any) => item.close());
+      .map((item: HTMLSwcAccordionItemElement) => item.hide());
 
     return Promise.all(itemsToClose);
   }
 
   render() {
     return (
-      <div>
+      <div class="accordion-list">
         <slot />
       </div>
     );

@@ -5,7 +5,7 @@ import { Component, h, Prop } from '@stencil/core';
   styleUrl: 'swc-tooltip.css',
   shadow: true,
 })
-export class SWCTooltip {
+export class SwcTooltip {
 
   @Prop({ attribute: 'html' }) isHtml: boolean = false;
   @Prop() content: string = '';

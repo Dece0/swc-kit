@@ -1,17 +1,22 @@
-import { Component, Element, Event, EventEmitter, h, Listen, Method, Prop, State } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Listen, Method, Prop, State, Watch } from '@stencil/core';
+
+export interface ToggleEvent {
+  element: HTMLSwcAccordionItemElement,
+  shouldOpen: boolean
+}
 
 @Component({
   tag: 'swc-accordion-item',
   styleUrl: 'swc-accordion-item.css',
   shadow: true,
 })
-export class SWCAccordionItem {
+export class SwcAccordionItem {
   @State() isOpen: boolean = false;
 
   @Prop() index!: number;
   @Prop() label!: string;
 
-  @Event() toggle: EventEmitter;
+  @Event() toggle: EventEmitter<ToggleEvent>;
 
   @Element() hostElement: HTMLElement;
 
@@ -22,23 +27,33 @@ export class SWCAccordionItem {
   }
 
   @Listen('click')
-  toggleOpen(): void {
+  toggleOpen(ev: Event): void {
+    if (!this.hostElement.isEqualNode(ev.target as Node)) {
+      return;
+    }
     this.toggle.emit({
-      element: this.hostElement,
+      element: this.hostElement as HTMLSwcAccordionItemElement,
       shouldOpen: this.isOpen,
     });
   }
 
-  @Method()
-  async open(): Promise<void> {
-    this.isOpen = true;
-    this.content.style.maxHeight = `${this.content.scrollHeight}px`;
+  @Watch('isOpen')
+  changeIsOpenState(newValue: boolean) {
+    if (newValue) {
+      this.content.style.maxHeight = `${this.content.scrollHeight}px`;
+      return;
+    }
+    this.content.style.maxHeight = '';
   }
 
   @Method()
-  async close(): Promise<void> {
+  async show(): Promise<void> {
+    this.isOpen = true;
+  }
+
+  @Method()
+  async hide(): Promise<void> {
     this.isOpen = false;
-    this.content.style.maxHeight = '';
   }
 
   render() {
@@ -58,7 +73,9 @@ export class SWCAccordionItem {
           </button>
         </h2>
         <div class="accordion-body">
-          <slot />
+          <div class="accordion-content">
+            <slot />
+          </div>
         </div>
       </div>
     );

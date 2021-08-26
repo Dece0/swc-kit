@@ -5,7 +5,7 @@ import { Component, Prop, h, Element, Listen, Method } from '@stencil/core';
   styleUrl: 'swc-modal.css',
   shadow: true,
 })
-export class SWCModal {
+export class SwcModal {
   /**
    * The modal size
    */

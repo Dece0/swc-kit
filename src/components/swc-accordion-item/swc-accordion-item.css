@@ -1,5 +1,5 @@
 :host {
-  display: block;
+  @apply block;
 }
 
 .accordion-item {
@@ -24,4 +24,8 @@
 
 .accordion-body {
   @apply overflow-hidden max-h-0 duration-500 transition-all;
+}
+
+.accordion-content {
+  @apply p-3;
 }

@@ -5,15 +5,16 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ToggleEvent } from "./components/swc-accordion-item/swc-accordion-item";
 export namespace Components {
     interface SwcAccordion {
-        "isCollapsible": boolean;
+        "alwaysOpen": boolean;
     }
     interface SwcAccordionItem {
-        "close": () => Promise<void>;
+        "hide": () => Promise<void>;
         "index": number;
         "label": string;
-        "open": () => Promise<void>;
+        "show": () => Promise<void>;
     }
     interface SwcModal {
         "hide": () => Promise<void>;
@@ -72,12 +73,12 @@ declare global {
 }
 declare namespace LocalJSX {
     interface SwcAccordion {
-        "isCollapsible"?: boolean;
+        "alwaysOpen"?: boolean;
     }
     interface SwcAccordionItem {
         "index": number;
         "label": string;
-        "onToggle"?: (event: CustomEvent<any>) => void;
+        "onToggle"?: (event: CustomEvent<ToggleEvent>) => void;
     }
     interface SwcModal {
         /**
